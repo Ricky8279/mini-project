@@ -31,6 +31,10 @@ public class KafkaConfig {
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        config.put(ProducerConfig.ACKS_CONFIG, "all");// Wait for all replicas to acknowledge
+        config.put(ProducerConfig.RETRIES_CONFIG, 3); // Number of retries
+        config.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 1000); // Backoff time between retries
+        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
         return new DefaultKafkaProducerFactory<>(config);
     }
 
